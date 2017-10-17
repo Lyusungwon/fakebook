@@ -1,0 +1,38 @@
+    <nav class="container-fluid navbar-fixed-top firstNav">
+      <div class="row">
+        <div class="hidden-xs col-sm-6 col-md-offset-1 col-md-4">
+          <a href="/newsfeed/index"><img src="/fakebookicon.jpg" id="nav-brandpic"></a>
+          <div class="input-group" id="search">
+            <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon2">
+            <span class="input-group-addon" id="basic-addon2"><i class="fa fa-search"></i></span>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-5">
+          <div class="navbar-right">
+            <ul class="nav nav-pills">
+              <% if user_signed_in? %>
+              <li><a href="/newsfeed/ownpage/<%= current_user.id %>" id="butten1"><img src="<%= current_user.profile_image %>" id="nav-profile"><%= current_user.lastname %><%= current_user.firstname %></a></li>
+              <% end %>
+              <li><a href="/newsfeed/main" id="butten2">홈</a></li>
+              <li><a href="/newsfeed/friendslist" id="butten3"><i class="fa fa-users"></i></a></li>
+              <li><a href="#" id="butten4"><i class="fa fa-comments-o"></i></a></li>
+              <li><a href="#" id="butten5"><i class="fa fa-globe"></i></a></li>
+              <li>
+              <li role="presentation" class="dropdown">
+                <a id="butten6" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-angle-down"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <% if user_signed_in? %>
+                  <li><%= link_to "회원정보 수정", "/users/edit", method: "get" %></li>
+                  <li><%= link_to "로그아웃", "/users/sign_out", method: "delete" %></li>
+                  <% else %>
+                  <li><%= link_to "로그인", "/users/sign_in", method: "post" %></li>
+                  <% end %>
+                </ul>
+              </li>  
+            </ul>
+          </div>
+        </div>    
+      </div>
+    </nav>   

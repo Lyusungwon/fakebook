@@ -1,0 +1,104 @@
+<div class="container firstNav navbar-collapse">
+  <div class="row">
+    <div class="col-md-offset-1 col-md-5">
+      <a href="/"><img src="/fakebook.jpg" style="height:40px; width:180px; margin:20px" ></a>
+    </div>     
+  </div>     
+</div>
+<div class="container-fluid background">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-6">
+      <div class="status">
+        <div class="statusColor" style="text-align:center">
+          <div class="statusColorButten" ><p><%= resource_name.to_s.humanize %> 회원정보 수정</p></div>
+        </div>                
+        <div class="thinking" style="color:black">
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+            <%= devise_error_messages! %>
+              <div class="row">  
+                <div class="col-md-5">
+                  <p>이메일</p>
+                  <p>(이메일은 변경 불가)</p></br>
+                </div>
+                <div class="col-md-7">
+                  <p><%= current_user.email%> </p></br>
+                  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+                  <% end %>
+                </div>  
+              </div>
+              <div class="row">  
+                <div class="col-md-5">
+                  <p>비밀번호 변경</p>
+                  <p>(변경을 원하지 않으면 비워두세요)</p></br>
+                </div>
+                <div class="col-md-7">
+                  <%= f.password_field :password, autocomplete: "off", placeholder:"새 비밀번호" %>
+                  <%= f.password_field :password_confirmation, autocomplete: "off", placeholder:"새 비밀번호 확인" %></br>            
+                </div>  
+              </div>
+              <div class="row">  
+                <div class="col-md-5">
+                  <p>프로필 사진</p>
+                  <img src="<%= current_user.profile_image %>" style="height:120px; width:120px"></br></br>
+                </div>
+                <div class="col-md-7">
+                </br><%= f.file_field :profile_image %></br>
+                </div>
+              </div>
+              <div class="row">  
+                <div class="col-md-5">
+                  <p>커버 사진</p>
+                  <img src="<%= current_user.cover_image %>" style="height:80px; width:160px"></br></br>
+                </div>
+                <div class="col-md-7">
+                  </br><%= f.file_field :cover_image %></br>
+                </div>
+              </div>
+              <div class="row">  
+                <div class="col-md-5">
+                  <p>성</p></br>
+                  <p>이름</p></br>
+                </div>
+                <div class="col-md-7">
+                  </br>
+                  <%= f.text_field :lastname, placeholder:"성" %></br>
+                  <%= f.text_field :firstname, placeholder:"이름" %></br>
+                </div>
+              </div>
+              <div class="row">  
+                <div class="col-md-5">
+                  <p>성별</p></br>
+                </div>
+                <div class="col-md-7">
+                  <%= f.radio_button :gender, value:"female" %><a style="color:black; font-size:12px;"> 여성</a>
+                  <%= f.radio_button :gender, value:"male" %><a style="color:black; font-size:12px;"> 남성</a>
+                </div>
+              </div>
+              <div class="row">  
+                <div class="col-md-5">
+                  <p>기존 비밀번호</p>
+                  <p>(비밀번호를 입력해야 정보가 수정됩니다)</p></br>
+                </div>
+                <div class="col-md-7">
+                  </br>
+                  <%= f.password_field :current_password, autocomplete: "off" %></br>
+                </div>
+              </div>
+              <div class="row">  
+                <div class="col-md-offset-5 col-md-7">
+                  <%= f.submit "수정" %>
+                </div>
+              </div>
+          <% end %>
+        </div>
+      </div>   
+      <div class="status">
+        <div class="statusColor" style="text-align:center">
+          <div class="statusColorButten" ><p>회원 탈퇴</p></div>
+        </div>   
+        <p><%= button_to "회원 탈퇴", registration_path(resource_name), data: { confirm: "정말 탈퇴하시겠습니까?" }, method: :delete %></p>      
+      </div>   
+    </div>        
+  </div>
+</div>

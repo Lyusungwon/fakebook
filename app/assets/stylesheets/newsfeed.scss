@@ -1,0 +1,427 @@
+// Place all the styles related to the newspeed controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+body {
+    background: linear-gradient(white,#D3D8E8);
+    margin-bottom:300px;
+}
+
+.firstNav {
+    background-color:#385998;
+    border-bottom:1px solid #1C326C;
+}
+
+.firstNav i {
+    height:20px;
+    width:20px;
+    text-align:center;
+}
+
+.input-box {
+    margin-top:10px;
+    color:black;
+}
+    .input-box p{
+        margin:5px;
+        color:white;
+        font-size:14px;
+    }
+    
+    .input-box a{
+        margin:5px;
+        color:#9DACCB;
+        font-size:12px;
+    }
+    .input-box input{
+        height:26px;
+        width:200px;
+    }
+    #login {
+        border:1px solid #1A356E;
+        border-radius:1px;
+        color:white;
+        background-color:#5D76AA;
+        font-size:12px;
+        padding: 3px;
+        font-weight:bold;
+        margin-top:30px;
+    }
+
+.firstNav {
+    background-color:#385998;
+    border-bottom:1px solid #1C326C;
+}
+
+.firstNav i {
+    height:20px;
+    width:20px;
+    text-align:center;
+}
+
+    #nav-brandpic {
+        width:40px;
+        height:40px;
+        margin:5px 25px 5px 5px;
+        display:inline-block;
+        float:left;
+    }
+    
+    #search {
+        margin-top:8px;
+    }
+    
+    #nav-profile {
+        width:20px;
+        height:20px;
+        margin-right:10px
+    }
+    
+    #butten1,
+    #butten2{
+        padding:15px;
+        color:white;
+    }
+
+    #butten3,
+    #butten4,
+    #butten5,
+    #butten6{   
+        padding:12px;
+        color:#2F477A;
+        font-size:20px
+    }   
+    
+
+    #butten1:hover,
+    #butten2:hover {
+        color:#3D5A99;
+    }     
+
+.rightSidebar {
+    z-index:4;
+    width:15%;
+    height:100%;
+    margin-top:51px;
+    margin-left:85%;
+
+    border:1px solid #D2D3D6;
+    position:fixed;
+}
+
+        
+    .newspeed {
+    overflow-x:hidden;
+    overflow-y:auto;
+    border:1px solid #D2D3D6;
+    height:15%;
+    position:relative;
+    background-color:#E9EAED;
+}
+        .newspeedCont {
+        display:inline-block;
+        }
+        
+        .newspeedCont p {
+        font-size:12px;
+        margin: 3px 0 3px 2px;
+        }
+
+        .newspeedCont img {
+        height:30px;
+        width:30px;
+        float:left;
+        margin:5px 5px 10px 5px;
+        border:1px solid #D2D3D6;
+        }
+    
+        .newspeed .newline {
+        border:1px solid #D2D3D6;
+        height:0px;
+        width:180px;
+        margin:auto;
+        }
+
+    
+    .friends {
+    display:block;
+    border:1px solid #D2D3D6;
+    height:85%;
+    position:relative;
+    background-color:#E9EAED;
+    }
+
+        .friendLists{
+            height:85%;
+            overflow-x:hidden;
+            overflow-y:auto;
+
+        }
+
+        .friendCont {
+        display:inline-block;
+        width:100%;
+        }
+
+            .friendCont img {
+            height:30px;
+            width:30px;
+            float:left;
+            margin:5px 5px 0 5px;
+            border:1px solid #D2D3D6;
+            }
+
+            .friendCont p {
+            font-size:12px;
+            margin: 10px 0 0px 0px;
+            float:left;
+            overflow:hidden;
+            white-space:nowrap;
+            text-overflow: ellipsis;                    
+            width:65px;
+            }
+
+            .friendCont .online {
+            display:inline;
+            float:right;
+            color:#0F9D28;
+
+            }
+
+                .friendCont .online p {
+                margin: 12px 5px 0px 0px;
+                font-size:12px;
+                text-align:right;
+                font-weight:bold;
+                }
+
+                .friendCont .online i {
+                margin-left: 5px;
+                }
+    
+    .friendSearch {
+
+    }
+        .searchBox {
+        	border-radius: 0px;
+            width:240px;
+        }    
+
+.rightYear {
+    z-index:1;
+    width:200px;
+    position:fixed;
+    display:block;
+}
+
+.background{
+    background-color:#E9EAED;
+    width:100%;
+    padding-bottom:50px;
+    min-height: 800px;
+}
+
+            .status {
+                background-color:#FFFFFF;
+                border-radius: 5px;
+            	border:1px solid #D2D3D6;
+            	margin-top:20px
+            	
+            }
+            
+                .statusColor {
+                    height:40px;
+                    width:100%;
+                    background-color:#F6F7F8;
+                    border-bottom:1px solid #E9EAED;
+                    border-radius:5px 5px 0 0;
+                    padding:10px;
+                }
+                
+                .statusColorButten{
+                    
+                    display:inline-block;
+                    font-size:12px;
+                    font-weight:bold;
+                }
+                    
+                .thinking {
+                    padding: 10px 10px 10px 10px;
+                    color:#EAC1AB;
+                    height:auto;
+                }
+                
+                .thinking .form-control {
+                    background:transparent;
+                    border:0px;
+                }
+
+                #submit {
+                    border:1px solid #4E69A2;
+                    border-radius:1px;
+                    color:white;
+                    background-color:#4B66A1;
+                    font-size:12px;
+                    padding: 3px 15px;
+                    font-weight:bold;
+                    margin-top:10px;                    
+                    margin-left:20px;
+                }
+                
+
+            .posting {
+                background-color:#FFFFFF;
+                border-radius: 5px;
+            	border:1px solid #D2D3D6;
+            	margin-top:20px;
+            }
+            
+            .postUp {
+                padding:10px;
+            }
+
+                .postInfo{
+                display:inline;
+                }
+    
+    
+                    .postInfo img{
+                    height:40px;
+                    width:40px;
+                    float:left;
+                    margin:10px;
+                    }
+    
+    
+                    
+                    .postInfoText {
+                    margin:10px;
+                    }
+    
+                        .postInfoText a{
+                        font-size:14px;
+                        font-weight:bold;
+                        color:#535998;
+                        margin-bottom:4px;
+                        }
+                        
+                        .postInfoTime {
+                        display:block;
+                        }
+                        
+                        .postInfoText>#opt{
+                        float:right;
+                        }  
+                        
+                        .postInfoText p{
+                        font-size:11px;
+                        color:#BDA4A8;
+                        float:left;
+                        margin-top:5px;
+                        }
+                        
+                        .postInfoTime i{
+                        font-size:14px;
+                        color:#BDA4A8;
+                        margin:5px;
+                        }                    
+    
+                    
+                .postCont {
+                    font-size:14px;
+                    padding:10px 10px;
+                    margin-bottom: 0px;
+                }
+                
+                .postLike {
+                    font-size:12px;
+                    padding:10px;
+                    color:#937AAD;
+                    padding:0px 10px;
+                }
+            .postDown {
+                width:100%;
+                background-color:#F6F7F8;
+                border-top:1px solid #E9EAED;
+                border-radius: 0 0 5px 5px;
+                padding:10px 15px 10px 15px;
+                font-size:12px;
+                margin-top:10px;
+            }
+                .postDown .reply1{
+                    border-top: 1px solid #E9EAED;
+                    margin-top: 5px;
+                    padding-top: 5px;
+                    }                
+                .postDown .reply2{
+                    border-top: 1px solid #E9EAED;
+                    margin-top: 5px;
+                    }                
+                .postDown img {
+                    height:35px;
+                    width:35px;
+                    float:left;
+                    margin:0 5px 10px 5px;
+                    }
+                
+    .cover {
+        z-index:3;
+        background-size: cover;
+        background-repeat: no-repeat;
+    	height: 360px;
+    }
+    
+        .cover img {
+            z-index:5;
+        	width:175px;
+            height:175px;
+            position:relative;
+            margin-top:220px;
+            margin-left:30px;
+            border:3px solid white;
+        	border-radius: 5px;
+        }
+            
+        .cover h2 {
+            z-index:5;
+            margin-top:-80px;
+            margin-left:220px;
+            text-shadow: 0px 0px 7px black;
+        }
+
+        .secondNav {
+            z-index:4;
+            background-color:white;
+            border:1px solid #D2D3D6;
+        	border-radius: 0 0 5px 5px;
+        	margin-top:-2px;
+        	height:50px
+        }
+
+                .secondNav .contents {
+                    margin-left:200px;
+                }
+
+                    .secondNav .contents li {
+                    	border-right:1px solid #D2D3D6;
+                    	display:block;
+                    }
+                    
+                    #time {
+                    	border-left:1px solid #D2D3D6;
+                    }
+
+    .friend {  
+        border-bottom:1px solid #E3E6E9;
+    }
+    
+    .friend img {  
+        height:70px;
+        width:70px;
+        margin:10px;
+        border:1px solid #D2D3D6;
+    }
+        
+    .dafault_profile {
+        background: url("https://heatherchristenaschmidt.files.wordpress.com/2011/09/facebook_no_profile_pic2-jpg.gif");
+        }
+    .hidden {display:hidden;}

@@ -1,0 +1,24 @@
+<%= render :partial => "newsfeed/topnavbar" %>   
+<%= render :partial => "newsfeed/rightnavbar" %>   
+<div class="container-fluid background">
+  <div class="row" style="padding-top:50px">
+    <div class="hidden-xs hidden-sm col-md-offset-1 col-md-2">
+      <%= render :partial => "newsfeed/leftcol" %>   
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5">
+      <div class="posting postUp">
+        <% @users.each do |q| %>
+          <div class ="friend">
+            <img src="<%= q.profile_image%>">
+            <a href="/newsfeed/ownpage/<%= q.id %>"><%= q.lastname+q.firstname %></a>
+          </div>
+        <% end %>
+      </div>   
+    </div>
+    <div class="hidden-xs hidden-sm col-md-2">
+      <%= render :partial => "newsfeed/rightcol" %>
+    </div>        
+  </div>
+</div>
+
+

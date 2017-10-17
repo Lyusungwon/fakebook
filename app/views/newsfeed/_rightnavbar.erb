@@ -1,0 +1,48 @@
+<% @posts = Post.all %>
+<% @users = User.all %>
+<div class="rightSidebar hidden-xs hidden-sm">
+  <div class="newspeed">
+    <% @posts.reverse.each do |q| %>
+    <div class="newspeedCont">
+      <img src="<%= q.img %>">
+      <% if q.writer_id.nil? %>
+      <p><%= q.nickname %>님이 타임라인에 글을 남겼습니다.</p>
+      <% elsif q.receiver_id.nil? %>
+      <% @one_user = User.find(q.writer_id) %>
+      <p><%= @one_user.lastname %><%= @one_user.firstname %>님이 타임라인에 글을 남겼습니다.</p>
+      <% else %>
+      <% @from_user = User.find(q.writer_id) %>
+      <% @to_user = User.find(q.receiver_id) %>
+      <p><%= @from_user.lastname %><%= @from_user.firstname %>님이 <%=  @to_user.lastname%><%= @to_user.firstname%>님의 타임라인에 글을 남겼습니다.</p>
+      <% end %>
+    </div>
+    <div class="newline"></div>
+    <% end %>
+  </div>
+  
+  <div class="friends">
+    <div class="friendLists">
+      <% @users.reverse_each do |r| %>
+      <div class="friendCont">
+        <img src="<%= r.profile_image %>">
+        <a href="/newsfeed/ownpage/<%= r.id %>"><p><%= r.lastname+r.firstname %></p></a>
+        <div class="online">
+          <% if r.gender=="male" %>
+          <p style="color:blue"><i class="fa fa-male"></i></p>       
+          <% else %>
+          <p style="color:red"><i class="fa fa-female"></i></p>      
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+
+    <div class="friendSearch">
+      <div class="searchBox">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="검색">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

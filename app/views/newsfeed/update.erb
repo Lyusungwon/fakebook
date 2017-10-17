@@ -1,0 +1,55 @@
+<%= render :partial => "newsfeed/topnavbar" %>   
+<%= render :partial => "newsfeed/rightnavbar" %>   
+<div class="container-fluid background">
+  <div class="row" style="padding-top:50px">
+    <div class="hidden-xs hidden-sm col-md-offset-1 col-md-2">
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5">
+      <div class="posting" style="margin-top:20px">
+        <div class ="postUp">
+          <form method="POST">
+            <div class ="postInfo">
+              <div class="row">
+                <div class="col-md-1">
+                  <img src="<%= @one_post.img%>">
+                </div>
+                <div class="col-md-11">
+                  <div class="postInfoText">
+                    <a><input type="text" method="Post" name = "new_name" class="form-control" value="<%= @one_post.nickname %>"></a>
+                    <div class="postInfoTime">
+                      <p><%= @one_post.created_at %> · </p>
+                      <i class="fa fa-globe"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="postCont">
+                  <textarea name="new_content" class="form-control"><%= @one_post.content %></textarea></br>
+                  <img src="<%= @one_post.imgfile %>"></br>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="postCont">
+                <div class="col-md-6">
+                  <input type="password" name="input_password" placeholder="Password" class="form-control">
+                </div>
+                <div class="col-md-6" align="right">
+                  <input type="submit" value="수정" id="submit">
+                  <a href="/" id="submit">취소</a>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>        
+    <div class="hidden-xs hidden-sm col-md-2">     
+      <%= render :partial => "newsfeed/rightcol" %>
+    </div>
+  </div>
+</div>
+

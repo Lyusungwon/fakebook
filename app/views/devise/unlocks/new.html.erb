@@ -1,0 +1,31 @@
+<div class="container firstNav navbar-collapse">
+  <div class="row">
+    <div class="col-md-offset-1 col-md-5">
+      <a href="/"><img src="/fakebook.jpg" style="height:40px; width:180px; margin:20px" ></a>
+    </div>     
+  </div>     
+</div>
+<div class="container-fluid background">
+  <div class="row" style="padding-top:100px">
+    <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-6">
+      <div class="posting postUp">
+        <h2>Resend unlock instructions</h2>
+        
+        <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
+          <%= devise_error_messages! %>
+        
+          <div class="field">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true %>
+          </div>
+        
+          <div class="actions">
+            <%= f.submit "Resend unlock instructions" %>
+          </div>
+        <% end %>
+        
+        <%= render "devise/shared/links" %>
+      </div>   
+    </div>        
+  </div>
+</div>

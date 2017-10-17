@@ -1,0 +1,44 @@
+<%= render :partial => "newsfeed/topnavbar" %>   
+<%= render :partial => "newsfeed/rightnavbar" %>   
+<div class="container-fluid background">
+  <div class="row" style="padding-top:50px">
+    <div class="hidden-xs hidden-sm col-md-offset-1 col-md-2">
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5">
+      <div class="posting" style="margin-top:20px">
+        <div class ="postUp">
+          <div class ="postInfo">
+            <img src="<%= @one_post.img%>">
+            <div class="postInfoText">
+              <a><%= @one_post.nickname %></a>
+              <div class="postInfoTime">
+                <p><%= @one_post.created_at %> · </p>
+                <i class="fa fa-globe"></i>
+              </div>
+            </div>
+          </div>
+          <div class="postCont">
+            <p><%= @one_post.content %></p></br>
+            <img src="<%= @one_post.imgfile %>"></br>
+          </div>
+          <div class="row">
+            <form method="POST">
+              <div class="col-md-6">
+                <input type="password" name="input_password" placeholder="Password" class="form-control">
+              </div>
+              <div class="col-md-6" align="right">
+                <a href="/" id="submit">취소</a>
+                <input type="submit" value="삭제" id="submit">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>        
+    <div class="hidden-xs hidden-sm col-md-2">     
+      <%= render :partial => "newsfeed/rightcol" %>
+    </div>
+  </div>
+</div>
+
+

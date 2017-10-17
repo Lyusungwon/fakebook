@@ -1,0 +1,156 @@
+<%= render :partial => "newsfeed/topnavbar" %>   
+<%= render :partial => "newsfeed/rightnavbar" %>   
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-10">
+      <% u = User.find(params[:id]) %>
+      <div class="cover" style="background:url(<%= u.cover_image.nil? ? "http://cfs8.blog.daum.net/image/25/blog/2009/04/20/01/14/49eb4d8656a3a&filename=035.jpg": u.cover_image %>); background-size: cover; background-repeat: no-repeat;">
+        <img src="<%= u.profile_image %>">
+        <h2 style="color:white;"><strong><%= u.lastname %><%= u.firstname %></strong></h2>
+      </div>
+      <div class="secondNav">
+        <div class="contents">
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="/newsfeed/main" id="time"><strong>타임라인</strong></a></li>
+              <li><a href="#"><strong>정보</strong></a></li>
+              <li><a href="#"><strong>친구</strong></a></li>
+              <li><a href="#"><strong>사진</strong></a></li>
+              <li><a href=""><strong>더보기</strong></a></li>
+            </ul>
+          </div>  
+        </div>  
+      </div>
+    </div>
+    <div class="hidden-xs hidden-sm col-md-4">
+      <%= render :partial => "newsfeed/leftcol" %>   
+      <%= render :partial => "newsfeed/rightcol" %> 
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <div class="status">
+          <% if user_signed_in? %>
+        <form action="/newsfeed/write_own" enctype="multipart/form-data" method="POST">
+          <div class="statusColor">
+            <div class="statusColorButten"><i class="fa fa-pencil-square-o"></i></div>
+            <div class="statusColorButten" style="margin-right:20px;"><p>상태</p></div>
+            <div class="statusColorButten"><i class="fa fa-picture-o"></i></div>
+            <div class="statusColorButten"><input type="file" name="imgfile"></div>
+          </div>
+          <div class="thinking">
+            <textarea rows="4" cols="100" name="content" placeholder="무슨 생각을 하고 계신가요?" class="form-control"></textarea></br>
+            <div align="right">
+              <input type="submit" value="게시" align="right" id="submit">
+            </div>
+          </div>
+        </form>              
+          <% else %>
+        <div class="statusColor">
+          <div class="statusColorButten"><i class="fa fa-pencil-square-o"></i></div>
+          <div class="statusColorButten" style="margin-right:20px;"><p>상태</p></div>
+          <div class="statusColorButten"><i class="fa fa-picture-o"></i></div>
+          <div class="statusColorButten"><p>사진</p></div>
+        </div>
+        <div class="thinking" style="text-align:middle">
+          <p>로그인을 해야 글을 남길 수 있습니다.ㅜㅜ</p>
+        </div>
+          <%end%>
+      </div>   
+      <% @own_posts = Post.all.where(:receiver_id => params[:id]).order("created_at DESC").page(params[:page]).per_page(5) %>
+      <% @own_posts.each do |q| %>
+      <div class="posting">
+        <div class ="postUp">
+          <div class ="postInfo">
+            <img src="<%= q.img%>">
+            <div class="postInfoText">
+              <a href="/newsfeed/ownpage/<%= q.writer_id %>"><%= User.find(q.writer_id).lastname %><%= User.find(q.writer_id).firstname %></a>
+              <i class="fa fa-caret-right" style="margin:0 20px"></i>
+              <a href="/newsfeed/ownpage/<%= q.receiver_id %>"><%= User.find(q.receiver_id).lastname %><%= User.find(q.receiver_id).firstname %></a>
+                <div class="dropdown" id="opt">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" style="border:none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <i class="fa fa-angle-down"></i>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="/newsfeed/update/<%= q.id %>">수정</a></li>
+                    <li><a href="/newsfeed/delete/<%= q.id %>">삭제</a></li>
+                  </ul>
+                </div>                    
+              <div class="postInfoTime">
+                <p><%= q.created_at %> · </p>
+                <i class="fa fa-globe"></i>
+              </div>
+            </div>
+          </div>
+          <div class="postCont">
+            <p><%= q.content %></p>
+            <img src="<%= q.imgfile %>">
+          </div>
+          <div class="postLike">
+            <% if user_signed_in? %>
+              <% if Like.where(:post_id => q.id, :user_id => current_user.id).take.nil?%>
+                <div class="postLike">
+                    <p style="display:inline"><a href ="/newsfeed/like_post/<%= q.id %>" ><i class="fa fa-thumbs-up"></i> 좋아요</a></p>
+                </div>              
+              <% else %>
+                <div class="postLike">
+                    <p style="display:inline"><a href ="/newsfeed/like_post_cancel/<%= q.id %>" ><i class="fa fa-thumbs-down"></i> 좋아요 취소</a></p>
+                </div>              
+              <% end %>
+            <% end %>
+          </div>              
+        </div>
+        <div class="postDown">
+          <% @like=Like.where(:post_id => q.id, :like => true).all.count %>
+          <% if @like>0 %>
+          <a><%= @like %>명이 좋아합니다</a> 
+          <%else%>
+          가장 먼저 좋아요를 눌러주세요
+          <%end%>
+          </a>  
+          <% q.replies.reverse_each do |r| %>
+          <div class="reply1">
+            <div class ="row">
+              <div class="col-md-1">              
+                <img src="<%= r.img%>">
+              </div>
+              <div class="col-md-11" style="word-wrap: break-word; display:inline">
+                <a style="font-weight:bold"><%= r.job %></a>              
+                <p style="font-size:11px; color:#BDA4A8; display:inline;"><%= r.ip %></p>
+                <p style="display:inline"><%= r.content %></p>
+                <% unless r.user_id.nil? %>
+                  <% if user_signed_in? %>
+                    <% if r.user_id==current_user.id %>
+                      <a href="/newsfeed/reply_delete/<%= r.id %>"><i class="fa fa-times"></i></a></br>
+                    <%end%>
+                  <%end%>
+                <%else%>  
+                  <a href="/newsfeed/reply_delete/<%= r.id %>"><i class="fa fa-times"></i></a></br>
+                <%end%>  
+                <% if user_signed_in? %>
+                  <% if Like.where(:reply_id => r.id, :user_id => current_user.id).take.nil?%>
+                    <a href="/newsfeed/like_reply/<%= r.id %>">좋아요</i></a>
+                  <% else %>
+                    <a href="/newsfeed/like_reply_cancel/<%= r.id %>">좋아요 취소</i></a>
+                  <% end %>
+                <% end %>
+                <% @like=Like.where(:reply_id => r.id, :like => true).all.count %>
+                <% if @like>0 %>
+                <a><i class="fa fa-thumbs-up"></i><%= @like %></a> 
+                <%end%>     
+              </div>
+            </div>
+          </div>
+          <%end%>
+          <div class="reply2">
+            <form action="/newsfeed/reply" style="display:inline" method="POST">
+              <input type="hidden" name="post_id" value="<%= q.id %>">
+              <input type="text" name="reply" class="form-control" style="width:100%" placeholder="댓글을 입력하세요... Enter로 입력">
+            </form>
+          </div>
+        </div>
+      </div>
+      <% end %>
+      <div style="text-align:center"><%= will_paginate @own_posts, :previous_label => '이전', :next_label => '다음'  %></div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,149 @@
+<%= render :partial => "newsfeed/topnavbar" %>   
+<%= render :partial => "newsfeed/rightnavbar" %>   
+<div class="container-fluid background">
+  <div class="row" style="padding-top:50px">
+    <div class="hidden-xs hidden-sm col-md-offset-1 col-md-2">
+      <%= render :partial => "newsfeed/leftcol" %>   
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5">
+      <% @posts = Post.order("created_at DESC").page(params[:page]).per_page(5) %>
+      <% @posts.each do |q| %>
+      <div class="posting">
+        <div class ="postUp">
+          <div class ="postInfo">
+            <img src="<%= q.img %>">
+            <div class="postInfoText">
+              <% if q.writer_id.nil? %>
+              <a><%= q.nickname %></a>
+              <% elsif q.receiver_id.nil? %>                  
+              <a href="/newsfeed/ownpage/<%= q.writer_id %>"><%= User.find(q.writer_id).lastname %><%= User.find(q.writer_id).firstname %></a>
+              <% else %>                  
+              <a href="/newsfeed/ownpage/<%= q.writer_id %>"><%= User.find(q.writer_id).lastname %><%= User.find(q.writer_id).firstname %></a>
+              <i class="fa fa-caret-right" style="margin:0 20px"></i>
+              <a href="/newsfeed/ownpage/<%= q.receiver_id %>"><%= User.find(q.receiver_id).lastname %><%= User.find(q.receiver_id).firstname %></a>
+              <% end %>
+                <% if q.writer.nil? %>
+                <div class="dropdown" id="opt">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" style="border:none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <i class="fa fa-angle-down"></i>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="/newsfeed/update/<%= q.id %>">수정</a></li>
+                    <li><a href="/newsfeed/delete/<%= q.id %>">삭제</a></li>
+                  </ul>
+                </div>                    
+                <% elsif user_signed_in?&&q.writer_id == current_user.id %>
+                <div class="dropdown" id="opt">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" style="border:none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <i class="fa fa-angle-down"></i>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="/newsfeed/update2/<%= q.id %>">수정</a></li>
+                    <li><a href="/newsfeed/delete_process/<%= q.id %>">삭제</a></li>
+                  </ul>
+                </div>  
+                <% end %>                  
+              <div class="postInfoTime">
+                <p><%= q.created_at.in_time_zone("Seoul") %> · </p>
+                <p><%= q.ip %> · </p>
+                <i class="fa fa-globe"></i>
+              </div>
+            </div>
+          </div>
+          <div class="postCont">
+            <p><%= q.content %></p>
+            <img src="<%= q.imgfile %>">
+          </div>
+          <div class="postLike">
+            <% if user_signed_in? %>
+              <% if Like.where(:post_id => q.id, :user_id => current_user.id).take.nil?%>
+                <a id="likeButton<%=q.id%>" style="display:inline; cursor: pointer;"><i class="fa fa-thumbs-up"></i> 좋아요</a>
+                <a class="hidden" id="likeCancel<%=q.id%>" style="display:inline; cursor: pointer;"><i class="fa fa-thumbs-down"></i> 좋아요 취소</a>
+              <% else %>
+                <a class="hidden" id="likeButton<%=q.id%>" style="display:inline; cursor: pointer;"><i class="fa fa-thumbs-up"></i> 좋아요</a>
+                <a id="likeCancel<%=q.id%>" style="display:inline; cursor: pointer;"><i class="fa fa-thumbs-down"></i> 좋아요 취소</a>
+              <% end %>
+            <% end %>
+          </div>              
+        </div>
+        <div class="postDown">
+          <div id="likeNum<%= q.id %>">
+            <% @like=Like.where(:post_id => q.id, :like => true).all.count %>
+            <% if @like>0%>
+            <%=@like%>명이 좋아합니다
+            <% else %>
+            가장 먼저 좋아요를 눌러주세요
+            <% end %>
+          </div>
+          <% q.replies.reverse_each do |r| %>
+          <div class="reply1">
+            <div class ="row">
+              <div class="col-md-1">              
+                <img src="<%= r.img%>">
+              </div>
+              <div class="col-md-11" style="word-wrap: break-word; display:inline">
+                <a style="font-weight:bold"><%= r.job %></a>              
+                <!--<p style="font-size:11px; color:#BDA4A8; display:inline;"><%= r.ip %></p>-->
+                <p style="display:inline"><%= r.content %></p>
+                <% unless r.user_id.nil? %>
+                  <% if user_signed_in? %>
+                    <% if r.user_id==current_user.id %>
+                      <a href="/newsfeed/reply_delete/<%= r.id %>"><i class="fa fa-times"></i></a></br>
+                    <%end%>
+                  <%end%>
+                <%else%>  
+                  <a href="/newsfeed/reply_delete/<%= r.id %>"><i class="fa fa-times"></i></a></br>
+                <%end%>  
+                <% if user_signed_in? %>
+                  <% if Like.where(:reply_id => r.id, :user_id => current_user.id).take.nil?%>
+                    <a href="/newsfeed/like_reply/<%= r.id %>">좋아요</i></a>
+                  <% else %>
+                    <a href="/newsfeed/like_reply_cancel/<%= r.id %>">좋아요 취소</i></a>
+                  <% end %>
+                <% end %>
+                <% @like=Like.where(:reply_id => r.id, :like => true).all.count %>
+                <% if @like>0 %>
+                <a><i class="fa fa-thumbs-up"></i><%= @like %></a> 
+                <%end%>                
+              </div>
+            </div>
+          </div>
+          <%end%>
+          <div class="reply2">
+            <form action="/newsfeed/reply" style="display:inline" method="POST">
+              <input type="hidden" name="post_id" value="<%= q.id %>">
+              <input type="text" name="reply" class="form-control" style="width:100%" placeholder="댓글을 입력하세요... Enter로 입력">
+            </form>
+          </div>
+        </div>
+      </div>
+      <script>
+      $(function(){
+        $("#likeButton<%=q.id%>").click(function(){
+          $.ajax({
+            url: "/newsfeed/like_post/<%=q.id%>",
+            success: function(){$("#likeButton<%=q.id%>").addClass("hidden");
+                                $("#likeCancel<%=q.id%>").removeClass("hidden");
+                                $("#likeNum<%=q.id%>").replaceWith("<%= @like+1 %>명이 좋아합니다");}
+          });
+        });
+        $("#likeCancel<%=q.id%>").click(function(){
+          $.ajax({
+            url: "/newsfeed/like_post_cancel/<%=q.id%>",
+            success: function(){$("#likeCancel<%=q.id%>").addClass("hidden");
+                                $("#likeButton<%=q.id%>").removeClass("hidden");
+                                $("#likeNum<%=q.id%>").replaceWith("<%= @like-1 %>명이 좋아합니다");}
+          });
+        });
+      });
+      </script>
+      <% end %>
+      <div style="text-align:center"><%= will_paginate @posts, :previous_label => '이전', :next_label => '다음'  %></div>
+    </div>        
+    <div class="hidden-xs hidden-sm col-md-2">
+    <%= render :partial => "newsfeed/rightcol" %>
+    </div>        
+  </div>
+</div>
+
+

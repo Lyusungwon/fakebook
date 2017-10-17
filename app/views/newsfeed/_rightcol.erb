@@ -1,0 +1,14 @@
+<div class="status">
+  <div class="statusColor" style="text-align:center">
+    <div class="statusColorButten" ><p> 건의사항 보내기 </p></div>
+  </div>
+  <div class="thinking" style="font-size:10px">
+    <form action="/newsfeed/email_send" method="POST">
+      <input type="text" name="mail_cc" placeholder="참조" class="form-control"></br>
+      <input type="text" name="mail_from" placeholder="이름" class="form-control"></br>
+      <input type="text" name="mail_title" placeholder="제목" class="form-control"></br>
+      <textarea name="mail_content" class="form-control" placeholder="내용"></textarea></br>
+      <input type="submit" value="보내기" class="form-control">
+    </form>
+  </div>
+</div>
